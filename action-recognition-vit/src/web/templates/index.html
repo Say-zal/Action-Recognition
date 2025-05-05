@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Action Recognition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Action Recognition with Vision Transformer</h1>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <label for="video">Upload Video:</label>
+            <input type="file" id="video" name="video" accept="video/*" required>
+            <button type="submit">Upload and Predict</button>
+        </form>
+        {% if prediction %}
+        <div class="result">
+            <h2>Classification Result:</h2>
+            <p>{{ prediction }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
