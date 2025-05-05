@@ -1,1 +1,67 @@
 2025-05-04 10:59:14,444 - INFO - Top-1 Accuracy: 94.80%
+2025-05-05 18:32:28,762 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:32:37,590 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:32:47,603 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:32:57,392 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:33:07,125 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:33:16,948 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:33:26,809 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:33:36,753 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:33:46,735 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:33:56,619 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:34:06,479 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:34:16,265 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:34:26,174 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:34:36,038 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:34:45,960 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:34:55,739 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:35:05,708 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:35:15,607 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:35:25,416 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:35:35,320 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:35:45,080 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:35:55,017 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:36:04,946 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:36:14,737 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:36:24,572 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:36:34,501 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:36:44,327 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:36:54,131 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:37:04,032 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:37:13,893 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:37:23,694 - INFO - Raw logits shape: torch.Size([8, 400])
+2025-05-05 18:37:25,743 - INFO - Raw logits shape: torch.Size([2, 400])
+2025-05-05 18:37:25,744 - INFO - Top-1 Accuracy: 94.00%
+2025-05-05 18:37:26,215 - INFO -        
+                precision    recall  f1-score   support
+
+  brush_hair       1.00      0.88      0.93         8
+   cartwheel       1.00      1.00      1.00        10
+       catch       1.00      1.00      1.00         7
+        chew       1.00      0.82      0.90        11
+       climb       1.00      1.00      1.00        15
+climb_stairs       1.00      0.89      0.94         9
+  draw_sword       0.80      1.00      0.89        12
+         eat       0.77      0.83      0.80        12
+     fencing       1.00      1.00      1.00        12
+   flic_flac       1.00      1.00      1.00         6
+        golf       1.00      1.00      1.00        12
+   handstand       1.00      0.85      0.92        13
+        kiss       0.90      1.00      0.95         9
+        pick       1.00      0.86      0.92         7
+        pour       0.79      1.00      0.88        11
+      pullup       1.00      1.00      1.00        10
+      pushup       0.94      1.00      0.97        15
+   ride_bike       1.00      0.89      0.94         9
+   shoot_bow       0.83      0.83      0.83         6
+   shoot_gun       1.00      1.00      1.00         9
+       situp       1.00      0.91      0.95        11
+       smile       0.91      0.91      0.91        11
+       smoke       0.80      0.80      0.80         5
+       throw       0.91      1.00      0.95        10
+        wave       1.00      0.90      0.95        10
+
+    accuracy                           0.94       250
+   macro avg       0.95      0.93      0.94       250
+weighted avg       0.95      0.94      0.94       250
+
