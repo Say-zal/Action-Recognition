@@ -21,8 +21,8 @@ from training.dataset import get_dataloader
 logging.basicConfig(filename='training.log', level=logging.INFO, 
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
-def train_model(data_dir, epochs=30, batch_size=4, learning_rate=1e-4):
-    train_loader, val_loader = get_dataloader(data_dir, batch_size)
+def train_model(data_dir, epochs=10, batch_size=4, learning_rate=1e-4):
+    train_loader, val_loader, test_loader = get_dataloader(data_dir, batch_size)
     processor, model = load_timesformer_model()
     model.train()
 
@@ -30,7 +30,7 @@ def train_model(data_dir, epochs=30, batch_size=4, learning_rate=1e-4):
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
     scaler = GradScaler()  # For mixed precision training
     writer = SummaryWriter()
-    metrics = {"loss": []}
+    metrics = {"training_loss": [], "val_loss":[], "val_accuracy":[]}
 
     for epoch in range(epochs):
         running_loss = 0.0
@@ -47,9 +47,30 @@ def train_model(data_dir, epochs=30, batch_size=4, learning_rate=1e-4):
             running_loss += loss.item()
 
         epoch_loss = running_loss / len(train_loader)
-        metrics["loss"].append(epoch_loss)
+        metrics["training_loss"].append(epoch_loss)
         writer.add_scalar("Loss/train", epoch_loss, epoch)
         logging.info(f"Epoch {epoch+1}/{epochs}, Loss: {epoch_loss}")
+        
+        #Validation
+        model.eval()
+        val_loss=0.0
+        correct=0
+        total=0
+        with torch.no_grad():
+            for inputs, labels in val_loader:
+                outputs = model(pixel_values=inputs).logits
+                loss = criterion(outputs, labels)
+                val_loss += loss.item()
+                _, preds = torch.max(outputs, dim=1)
+                correct += (preds == labels).sum().item()
+                total += labels.size(0)
+        val_loss = val_loss / len(val_loader)
+        val_accuracy = correct / total
+        metrics["val_loss"].append(val_loss)
+        metrics["val_accuracy"].append(val_accuracy)
+        writer.add_scalar("Loss/val", val_loss, epoch)
+        writer.add_scalar("Accuracy/val", val_accuracy, epoch)
+        logging.info(f"Epoch {epoch+1}/{epochs}, Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}, Val Accuracy: {val_accuracy:.4f}")
 
     # Save metrics to a JSON file
     with open("training_metrics.json", "w") as f:
