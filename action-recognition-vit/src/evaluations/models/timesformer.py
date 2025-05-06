@@ -1,4 +1,4 @@
-  import torch
+import torch
 from transformers import AutoImageProcessor, AutoModelForVideoClassification
 import os
 def load_timesformer_model():
@@ -6,7 +6,7 @@ def load_timesformer_model():
     Load the pre-trained TimeSformer model for video classification.
     """
     # Load the processor and model from Hugging Face
-    processor = AutoImageProcessor.from_pretrained("facebook/timesformer-base-finetuned-k400")
+    processor =AutoImageProcessor.from_pretrained("facebook/timesformer-base-finetuned-k400")
     model = AutoModelForVideoClassification.from_pretrained("facebook/timesformer-base-finetuned-k400")
     
     # Optionally load fine-tuned weights if available
