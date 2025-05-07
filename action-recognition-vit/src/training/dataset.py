@@ -4,12 +4,14 @@ from torch.utils.data import Dataset
 from torchvision import transforms
 from PIL import Image
 from sklearn.model_selection import train_test_split
+
 class HMDBDataset(Dataset):
     def __init__(self, root_dir, clip_size=8, transform=None, frame_rate=32):
         self.root_dir = root_dir
         self.clip_size = clip_size
         self.transform = transform
         self.frame_rate = frame_rate
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.data = self._load_data()
 
     def _load_data(self):
@@ -37,7 +39,6 @@ class HMDBDataset(Dataset):
     def __len__(self):
         return len(self.data)
 
-
     def _load_frames(self, video_path):
         """
         Load all frames from a video folder (expected to have exactly clip_size frames).
@@ -54,9 +55,11 @@ class HMDBDataset(Dataset):
         frames = self._load_frames(video_path)
         if self.transform:
             frames = [self.transform(frame) for frame in frames]
-        return torch.stack(frames), label
+        frames_tensor = torch.stack(frames).to(self.device)
+        label_tensor = torch.tensor(label, dtype=torch.long).to(self.device)
+        return frames_tensor, label_tensor
 
-def get_dataloader(root_dir, batch_size=8, clip_size=8, train_ratio=0.8, val_ratio = 0.1):
+def get_dataloader(root_dir, batch_size=8, clip_size=8, train_ratio=0.8, val_ratio=0.1):
     transform = transforms.Compose([
         transforms.Resize((224, 224)),
         transforms.ToTensor(),
@@ -86,9 +89,9 @@ def get_dataloader(root_dir, batch_size=8, clip_size=8, train_ratio=0.8, val_rat
     test_dataset = torch.utils.data.Subset(dataset, test_idx)
     
     # Create DataLoaders
-    train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-    val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
-    test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+    train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True, pin_memory=True)
+    val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=batch_size, shuffle=False, pin_memory=True)
+    test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size, shuffle=False, pin_memory=True)
     
     # Log split sizes
     print(f"Split sizes: Train={len(train_dataset)}, Val={len(val_dataset)}, Test={len(test_dataset)}")
